@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Shopware DevTools</title>
+    <link rel="stylesheet" href="css/shared/layout.css">
+    <link rel="stylesheet" href="css/shared/sections.css">
+    <link rel="stylesheet" href="css/shared/buttons.css">
+    <link rel="stylesheet" href="css/pages/popup.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">Sidworks Shopware DevTools</div>
+        <a href="https://www.sidworks.nl" target="_blank" class="header-link">by Sidworks →</a>
+    </div>
+
+    <div class="content">
+        <div class="status-box" id="statusBox">
+            <div class="status-header">
+                <span class="status-indicator" id="statusIndicator"></span>
+                <span class="status-title" id="statusTitle">Checking status...</span>
+            </div>
+            <div class="status-message" id="statusMessage"></div>
+        </div>
+
+        <div class="section">
+            <strong class="section-title">🚀 How to Use</strong>
+            <div class="section-item">1. Open Chrome DevTools (F12 or right-click → Inspect)</div>
+            <div class="section-item">2. Go to the <strong>Elements</strong> tab</div>
+            <div class="section-item">3. Look for <strong>"Shopware"</strong> panel (next to Styles)</div>
+            <div class="section-item">4. Select any element to see its template info</div>
+        </div>
+
+        <div class="section">
+            <strong class="section-title">📋 Requirements</strong>
+            <div class="section-item highlight">✓ SidworksDevTools plugin installed</div>
+            <div class="section-item highlight">✓ Shopware in debug mode (APP_ENV=dev)</div>
+            <div class="section-item highlight">✓ Plugin enabled in configuration</div>
+        </div>
+
+        <div class="links">
+            <a href="https://github.com/sidworks-dev" class="link-btn" target="_blank">GitHub</a>
+            <a href="https://github.com/sidworks-dev/sw-plugin-dev-tools/wiki" class="link-btn secondary" target="_blank">Documentation</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div id="versionInfo">Loading version...</div>
+        <a href="#" id="openOptions">⚙️ Extension Options</a>
+    </div>
+
+    <script src="js/popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+/* Shared Layout Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    background: #f9fafb;
+    color: #1f2937;
+}
+
+/* Header Banner - Purple Gradient */
+.header {
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.15);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #111827;
+        color: #d1d5db;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+        box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+    }
+}

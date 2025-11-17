@@ -1,0 +1,60 @@
+/* Shared Button Styles */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary,
+.link-btn {
+    background: #a855f7;
+    color: white;
+    box-shadow: 0 2px 4px rgba(168, 85, 247, 0.2);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover,
+.link-btn:hover {
+    background: #9333ea;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(168, 85, 247, 0.3);
+}
+
+.btn-primary:active,
+.link-btn:active {
+    transform: translateY(0);
+}
+
+.btn-secondary,
+.link-btn.secondary {
+    background: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    box-shadow: none;
+}
+
+.btn-secondary:hover,
+.link-btn.secondary:hover {
+    background: #e5e7eb;
+    box-shadow: none;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    .btn-secondary,
+    .link-btn.secondary {
+        background: #374151;
+        color: #d1d5db;
+        border-color: #4b5563;
+    }
+
+    .btn-secondary:hover,
+    .link-btn.secondary:hover {
+        background: #4b5563;
+    }
+}

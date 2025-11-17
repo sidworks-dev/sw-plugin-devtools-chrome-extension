@@ -1,0 +1,47 @@
+{
+    "manifest_version": 3,
+    "name": "Sidworks DevTools for Shopware 6",
+    "description": "Developer tools for Shopware 6 - Inspect templates and debug your storefront",
+    "version": "1.0.0",
+    "icons": {
+        "128": "images/icon128.png"
+    },
+    "action": {
+        "default_title": "Shopware DevTools by Sidworks",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "options_page": "options.html",
+    "devtools_page": "devtools.html",
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "background": {
+        "service_worker": "js/background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*/*"
+            ],
+            "js": [
+                "js/content.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "images/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
+}
