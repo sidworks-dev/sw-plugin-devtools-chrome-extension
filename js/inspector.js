@@ -12,7 +12,7 @@ function onItemInspected() {
         // Get element data store from script tag
         let elementDataStore = null;
         try {
-            const scriptTag = document.getElementById('shopware-devtools-data');
+            const scriptTag = document.getElementById('sidworks-shopware-devtools-data');
             if (scriptTag) {
                 if (!window.__swdtCache || Date.now() - window.__swdtCacheTime > 1000) {
                     const data = JSON.parse(scriptTag.textContent);
@@ -98,7 +98,7 @@ function onItemInspected() {
         // Get project path from page
         chrome.devtools.inspectedWindow.eval(
             `(function() {
-                const dataScript = document.getElementById('shopware-devtools-data');
+                const dataScript = document.getElementById('sidworks-shopware-devtools-data');
                 if (dataScript) {
                     try {
                         const data = JSON.parse(dataScript.textContent);

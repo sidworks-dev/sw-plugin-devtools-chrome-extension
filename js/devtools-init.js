@@ -6,7 +6,7 @@
 if (typeof chrome !== 'undefined' && chrome.devtools) {
     // Check if Shopware DevTools data exists on the page
     chrome.devtools.inspectedWindow.eval(
-        'document.getElementById("shopware-devtools-data") !== null',
+        'document.getElementById("sidworks-shopware-devtools-data") !== null',
         function(hasDevToolsData, isException) {
             if (isException || !hasDevToolsData) {
                 return;

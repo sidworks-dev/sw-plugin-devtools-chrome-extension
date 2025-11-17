@@ -44,7 +44,7 @@ function addDocumentInformation() {
     let elementCounter = 0;
 
     try {
-        const scriptTag = document.getElementById('shopware-devtools-data');
+        const scriptTag = document.getElementById('sidworks-shopware-devtools-data');
         if (scriptTag) {
             const existingData = JSON.parse(scriptTag.textContent);
             if (existingData.elementData) {
@@ -140,7 +140,7 @@ function addDocumentInformation() {
  */
 function storeElementData(elementDataStore) {
     try {
-        const scriptTag = document.getElementById('shopware-devtools-data');
+        const scriptTag = document.getElementById('sidworks-shopware-devtools-data');
         if (scriptTag) {
             const existingData = JSON.parse(scriptTag.textContent);
             existingData.elementData = elementDataStore;
@@ -186,7 +186,7 @@ function updateDevToolsInformation() {
 
         addDocumentInformation();
 
-        const scriptTag = document.getElementById('shopware-devtools-data');
+        const scriptTag = document.getElementById('sidworks-shopware-devtools-data');
         const hasDevTools = scriptTag && JSON.parse(scriptTag.textContent).elementData;
 
         if (port) {
@@ -259,7 +259,7 @@ observer.observe(document.documentElement, {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === 'checkStatus') {
         try {
-            const scriptTag = document.getElementById('shopware-devtools-data');
+            const scriptTag = document.getElementById('sidworks-shopware-devtools-data');
             if (scriptTag) {
                 const data = JSON.parse(scriptTag.textContent);
                 const elementCount = data.elementData ? Object.keys(data.elementData).length : 0;

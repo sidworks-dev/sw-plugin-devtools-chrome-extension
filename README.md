@@ -34,11 +34,9 @@ A Chrome and Edge extension that works with the [Sidworks DevTools Shopware](../
 1. Click the extension icon in your Chrome toolbar
 2. Click **Options** (or right-click icon → Options)
 3. Configure settings:
-   - **Project Path**: Absolute path to your Shopware installation (e.g., `/Users/you/projects/shopware`)
+   - **Project Path**: This has to be configured within the Shopware plugin configuration.
    - **Editor Type**: Choose PHPStorm or VSCode
    - **Enable IDE Integration**: Toggle IDE link functionality
-
-**Important**: The project path must be an absolute path that matches your local filesystem.
 
 **Tip for Docker/DDEV users**: Add the `PROJECT_PATH` environment variable to your `docker-compose.yml` or `.ddev/config.yaml`:
 
@@ -106,7 +104,7 @@ Click the extension icon to see:
 
 ### How It Works
 
-1. **Plugin Injects Data**: Shopware plugin adds `<script id="shopware-devtools-data">` with template metadata
+1. **Plugin Injects Data**: Shopware plugin adds `<script id="sidworks-shopware-devtools-data">` with template metadata
 2. **Content Script Detects**: `content.js` detects the data and notifies the extension
 3. **DevTools Panel Created**: `devtools-init.js` creates the "Shopware" sidebar panel
 4. **Element Selection**: User selects element in Chrome Elements panel
@@ -126,7 +124,6 @@ When you click an IDE link, the extension:
 ### Storage
 
 Settings are stored in Chrome's `chrome.storage.sync`:
-- `projectPath`: Absolute path to Shopware project
 - `editorType`: `'phpstorm'` or `'vscode'`
 - `enableIde`: Boolean to enable/disable IDE integration
 
@@ -141,10 +138,10 @@ Settings are stored in Chrome's `chrome.storage.sync`:
 ### No "Shopware" Sidebar Appears
 - DevTools data not found on page
 - Ensure plugin is active (check popup)
-- Verify `<script id="shopware-devtools-data">` exists in page source
+- Verify `<script id="sidworks-shopware-devtools-data">` exists in page source
 
 ### IDE Link Opens Wrong Path
-- Check that **Project Path** in extension options matches your local filesystem
+- Check that **Project Path** in plugin configuration options matches your local filesystem
 - For Docker setups, the path should be your host machine path, not container path
 - Example: `/Users/you/shopware` not `/var/www/html`
 
