@@ -1,6 +1,6 @@
 # Sidworks DevTools - Chrome Extension
 
-A Chrome and Edge extension that works with the [Sidworks DevTools Shopware](../) plugin to deliver smart template insights right inside your browser inspector.
+A Chrome and Edge extension that works with the [Sidworks DevTools Shopware](https://github.com/sidworks-dev/sw-plugin-devtools) plugin to deliver smart template insights right inside your browser inspector.
 ## Features
 
 - **DevTools Sidebar Panel**: Adds a "Shopware" sidebar in the Chrome Elements panel
@@ -15,7 +15,7 @@ A Chrome and Edge extension that works with the [Sidworks DevTools Shopware](../
 ## Requirements
 
 - **Browser**: Chrome, Edge, or any Chromium-based browser (Manifest V3 compatible)
-- **Shopware Plugin**: [SidworksDevTools plugin](../) must be installed and enabled
+- **Shopware Plugin**: [Sidworks DevTools plugin](https://github.com/sidworks-dev/sw-plugin-devtools) must be installed and enabled
 - **Debug Mode**: Shopware must be running with `APP_ENV=dev`
 - **IDE** (optional): PHPStorm or VSCode for "Open in IDE" functionality
 
@@ -27,7 +27,7 @@ A Chrome and Edge extension that works with the [Sidworks DevTools Shopware](../
 2. Enable **Developer mode** (toggle in top-right corner)
 3. Click **Load unpacked**
 4. Navigate to and select this `chrome-extension/` directory
-5. The Sidworks DevTools icon will appear in your toolbar
+5. The [Sidworks DevTools plugin](https://github.com/sidworks-dev/sw-plugin-devtools) icon will appear in your toolbar
 
 ### Configure Extension
 
@@ -169,7 +169,7 @@ This extension uses vanilla JavaScript with no build process. Just edit and relo
 
 1. Make code changes
 2. Go to `chrome://extensions/`
-3. Click the reload icon for Sidworks DevTools
+3. Click the reload icon for [Sidworks DevTools plugin](https://github.com/sidworks-dev/sw-plugin-devtools)
 4. Refresh your Shopware page
 5. Reopen DevTools
 
