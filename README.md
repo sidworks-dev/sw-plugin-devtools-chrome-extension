@@ -209,4 +209,4 @@ MIT License - See [LICENSE](LICENSE.md) file for details
 ## Support
 
 - **Issues**: Report bugs on GitHub
-- **Plugin Documentation**: See main [README](../README.md)
+- **Plugin Documentation**: See main [README](https://github.com/sidworks-dev/sw-plugin-devtools/blob/main/README.md)

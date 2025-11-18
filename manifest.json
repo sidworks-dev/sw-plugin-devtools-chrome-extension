@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Sidworks DevTools for Shopware 6",
     "description": "Developer tools for Shopware 6 - Inspect templates and debug your storefront",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icons": {
         "128": "images/icon128.png"
     },

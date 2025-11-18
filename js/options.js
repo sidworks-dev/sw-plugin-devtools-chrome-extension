@@ -1,7 +1,3 @@
-/**
- * Sidworks DevTools - Options Page
- */
-
 // Load saved settings
 function loadSettings() {
     chrome.storage.sync.get({

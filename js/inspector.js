@@ -1,8 +1,3 @@
-/**
- * Sidworks DevTools for Shopware 6
- * Inspector (Sidebar) Script - Simplified
- */
-
 function onItemInspected() {
     function getElementData(el) {
         if (!el) {

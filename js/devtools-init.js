@@ -1,8 +1,3 @@
-/**
- * Sidworks DevTools for Shopware 6
- * DevTools Initialization
- */
-
 if (typeof chrome !== 'undefined' && chrome.devtools) {
     // Check if Shopware DevTools data exists on the page
     chrome.devtools.inspectedWindow.eval(
@@ -11,7 +6,7 @@ if (typeof chrome !== 'undefined' && chrome.devtools) {
             if (isException || !hasDevToolsData) {
                 return;
             }
-            
+
             // Create sidebar pane in Elements panel
             try {
                 chrome.devtools.panels.elements.createSidebarPane(

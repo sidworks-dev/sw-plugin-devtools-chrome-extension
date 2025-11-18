@@ -1,8 +1,3 @@
-/**
- * Sidworks DevTools for Shopware 6
- * Content Script - ULTRA SIMPLE VERSION
- */
-
 let port = null;
 let hasProcessed = false; // Flag to prevent reprocessing
 

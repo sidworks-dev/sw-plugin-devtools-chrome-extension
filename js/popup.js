@@ -1,8 +1,3 @@
-/**
- * Sidworks DevTools for Shopware 6
- * Popup Script
- */
-
 // Get extension version
 const manifest = chrome.runtime.getManifest();
 document.getElementById('versionInfo').textContent = `Version ${manifest.version}`;

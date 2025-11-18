@@ -1,39 +1,34 @@
-/**
- * Sidworks DevTools for Shopware 6
- * Background Service Worker - Manages communication between content and devtools
- */
-
 const ports = new Map();
 
 // Handle connections from content scripts and devtools
 chrome.runtime.onConnect.addListener((port) => {
     let portName = port.name;
     let tabId = 0;
-    
+
     // Get tab ID from sender
     if (port.sender?.tab?.id) {
         tabId = port.sender.tab.id;
     }
-    
+
     // Create unique port identifier
     const portKey = `${portName}:${tabId}`;
     console.log('Connected:', portKey);
-    
+
     ports.set(portKey, port);
-    
+
     // Handle messages
     port.onMessage.addListener((msg) => {
         // Add tab ID if not present
         if (!msg.tabId && port.sender?.tab?.id) {
             msg.tabId = port.sender.tab.id;
         }
-        
+
         if (!msg.tabId) {
             msg.tabId = 0;
         }
-        
+
         console.log(`Message for ${msg.to}(${msg.tabId}): ${msg.type}`);
-        
+
         // Handle background-specific messages
         if (msg.to === 'background') {
             if (msg.type === 'icon') {
@@ -46,7 +41,7 @@ chrome.runtime.onConnect.addListener((port) => {
             forwardMessage(msg);
         }
     });
-    
+
     // Cleanup on disconnect
     port.onDisconnect.addListener(() => {
         // Check and suppress BFCache-related errors
@@ -64,7 +59,7 @@ chrome.runtime.onConnect.addListener((port) => {
 function forwardMessage(msg) {
     const targetPort = `${msg.to}:${msg.tabId}`;
     const port = ports.get(targetPort);
-    
+
     if (port) {
         try {
             port.postMessage(msg);
