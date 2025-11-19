@@ -21,12 +21,17 @@ A Chrome and Edge extension that works with the [Sidworks DevTools Shopware](htt
 
 ## Installation
 
+### Download Extension
+
+1. Download the latest version: [Download ZIP](https://api.github.com/repos/sidworks-dev/sw-plugin-devtools-chrome-extension/zipball)
+2. Extract the ZIP file to a location on your computer
+
 ### Load Extension in Chrome
 
 1. Open Chrome and go to `chrome://extensions/`
 2. Enable **Developer mode** (toggle in top-right corner)
 3. Click **Load unpacked**
-4. Navigate to and select the unpacked directory
+4. Navigate to and select the extracted extension directory
 5. The [Sidworks DevTools plugin](https://github.com/sidworks-dev/sw-plugin-devtools) icon will appear in your toolbar
 
 ### Configure Extension
