@@ -109,7 +109,7 @@ Click the extension icon to see:
 
 ### How It Works
 
-1. **Plugin Injects Data**: Shopware plugin adds `<script id="sidworks-shopware-devtools-data">` with template metadata
+1. **Plugin Injects Data**: Shopware plugin adds `<script id="sidworks-devtools-data">` with template metadata
 2. **Content Script Detects**: `content.js` detects the data and notifies the extension
 3. **DevTools Panel Created**: `devtools-init.js` creates the "Shopware" sidebar panel
 4. **Element Selection**: User selects element in Chrome Elements panel
@@ -143,7 +143,7 @@ Settings are stored in Chrome's `chrome.storage.sync`:
 ### No "Shopware" Sidebar Appears
 - DevTools data not found on page
 - Ensure plugin is active (check popup)
-- Verify `<script id="sidworks-shopware-devtools-data">` exists in page source
+- Verify `<script id="sidworks-devtools-data">` exists in page source
 
 ### IDE Link Opens Wrong Path
 - Check that **Project Path** in plugin configuration options matches your local filesystem
