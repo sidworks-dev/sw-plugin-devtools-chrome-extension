@@ -251,21 +251,51 @@ function escapeHtml(text) {
     return text.replace(/[&<>"']/g, m => map[m]);
 }
 
+function joinPath(projectPath, filePath) {
+    return projectPath.replace(/\/+$/, '') + '/' + filePath.replace(/^\/+/, '');
+}
+
 /**
  * Generate IDE URL based on editor type
  */
 function generateIdeUrl(editorType, projectPath, filePath, lineNumber) {
-    const fullPath = projectPath + '/' + filePath;
+    const fullPath = joinPath(projectPath, filePath);
 
     switch (editorType) {
         case 'vscode':
             // vscode://file/{full_path}:{line}:{column}
-            return 'vscode://file/' + fullPath + ':' + lineNumber + ':1';
+            return 'vscode://file/' + fullPath.split('/').map(encodeURIComponent).join('/') + ':' + lineNumber + ':1';
         case 'phpstorm':
         default:
             // phpstorm://open?file={full_path}&line={line}
-            return 'phpstorm://open?file=' + fullPath + '&line=' + lineNumber;
+            return 'phpstorm://open?' + new URLSearchParams({
+                file: fullPath,
+                line: String(lineNumber)
+            }).toString();
     }
+}
+
+function openIdeUrl(ideUrl, statusDiv) {
+    chrome.runtime.sendMessage({
+        to: 'background',
+        type: 'openIdeUrl',
+        payload: {
+            url: ideUrl,
+            tabId: chrome.devtools.inspectedWindow.tabId
+        }
+    }, function(response) {
+        if (!chrome.runtime.lastError && response?.ok) {
+            return;
+        }
+
+        const errorMessage = chrome.runtime.lastError?.message || response?.error || 'Unknown error';
+        console.error('Failed to open IDE URL:', errorMessage);
+
+        if (statusDiv) {
+            statusDiv.textContent = 'Could not open IDE: ' + errorMessage;
+            statusDiv.style.color = '#ef4444';
+        }
+    });
 }
 
 // Listen for selection changes
@@ -294,6 +324,7 @@ document.addEventListener('click', function(e) {
         const elementId = e.target.getAttribute('data-element-id');
         const tagName = e.target.getAttribute('data-tag-name');
         const parentClassesStr = e.target.getAttribute('data-parent-classes');
+        const statusDiv = e.target.nextElementSibling;
 
         // Build search patterns - send up to 5 classes for progressive search
         let searchClasses = [];
@@ -322,13 +353,10 @@ document.addEventListener('click', function(e) {
             // Get editor type from storage
             chrome.storage.sync.get({ editorType: 'phpstorm' }, function(items) {
                 const ideUrl = generateIdeUrl(items.editorType, projectPath, filePath, blockLine);
-                window.location.href = ideUrl;
+                openIdeUrl(ideUrl, statusDiv);
             });
             return;
         }
-
-        // Get status div
-        const statusDiv = e.target.nextElementSibling;
 
         // Update status
         if (statusDiv) {
@@ -336,7 +364,7 @@ document.addEventListener('click', function(e) {
         }
 
         // Call API to find exact line
-        const fullPath = projectPath + '/' + filePath;
+        const fullPath = joinPath(projectPath, filePath);
 
         // Step 1: Start the fetch in page context and store result in window
         const requestId = 'swdt_' + Date.now();
@@ -347,10 +375,10 @@ document.addEventListener('click', function(e) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        filePath: '${fullPath.replace(/'/g, "\\'")}',
+                        filePath: ${JSON.stringify(fullPath)},
                         searchClasses: ${JSON.stringify(searchClasses)},
-                        searchId: '${searchId.replace(/'/g, "\\'")}',
-                        searchTag: '${tagName.replace(/'/g, "\\'")}',
+                        searchId: ${JSON.stringify(searchId)},
+                        searchTag: ${JSON.stringify(tagName || '')},
                         blockStartLine: ${blockLine},
                         parentClasses: ${JSON.stringify(parentClasses)}
                     })
@@ -381,7 +409,7 @@ document.addEventListener('click', function(e) {
                         // Get editor type from storage and open IDE
                         chrome.storage.sync.get({ editorType: 'phpstorm' }, function(items) {
                             const ideUrl = generateIdeUrl(items.editorType, projectPath, filePath, lineNumber);
-                            window.location.href = ideUrl;
+                            openIdeUrl(ideUrl, statusDiv);
                         });
 
                         // Update button text to show line number
