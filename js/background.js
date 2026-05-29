@@ -1,5 +1,10 @@
 const ports = new Map();
 const iconImageDataCache = new Map();
+const ICON_PATHS = {
+    active: 'images/icon128-active.png',
+    inactive: 'images/icon128-inactive.png'
+};
+const ICON_SIZES = [16, 32, 48, 128];
 const ALLOWED_IDE_PROTOCOLS = new Set(['phpstorm:', 'vscode:']);
 
 // Handle connections from content scripts and devtools
@@ -106,7 +111,7 @@ async function updateIcon(tabId, status) {
 
 async function setActionIcon(status, tabId) {
     const details = {
-        imageData: getIconImageData(status === 'online' ? 'active' : 'inactive')
+        imageData: await getIconImageData(status === 'online' ? 'active' : 'inactive')
     };
 
     if (tabId) {
@@ -116,20 +121,46 @@ async function setActionIcon(status, tabId) {
     await chrome.action.setIcon(details);
 }
 
-function getIconImageData(state) {
+async function getIconImageData(state) {
     if (!iconImageDataCache.has(state)) {
-        iconImageDataCache.set(state, {
-            16: createIconImageData(16, state),
-            32: createIconImageData(32, state),
-            48: createIconImageData(48, state),
-            128: createIconImageData(128, state)
-        });
+        iconImageDataCache.set(state, loadIconImageData(state));
     }
 
     return iconImageDataCache.get(state);
 }
 
-function createIconImageData(size, state) {
+async function loadIconImageData(state) {
+    try {
+        const response = await fetch(chrome.runtime.getURL(ICON_PATHS[state]));
+        if (!response.ok) {
+            throw new Error(`Failed to fetch ${ICON_PATHS[state]}`);
+        }
+
+        const bitmap = await createImageBitmap(await response.blob());
+        const imageDataBySize = {};
+
+        for (const size of ICON_SIZES) {
+            const canvas = new OffscreenCanvas(size, size);
+            const context = canvas.getContext('2d');
+
+            context.clearRect(0, 0, size, size);
+            context.drawImage(bitmap, 0, 0, size, size);
+            imageDataBySize[size] = context.getImageData(0, 0, size, size);
+        }
+
+        bitmap.close();
+
+        return imageDataBySize;
+    } catch (error) {
+        console.warn('Icon asset load failed, using generated fallback:', error.message);
+
+        return Object.fromEntries(
+            ICON_SIZES.map((size) => [size, createFallbackIconImageData(size, state)])
+        );
+    }
+}
+
+function createFallbackIconImageData(size, state) {
     const data = new Uint8ClampedArray(size * size * 4);
     const center = (size - 1) / 2;
     const radius = size * 0.42;
